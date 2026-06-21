@@ -105,6 +105,14 @@ body {
 	transition: background 0.2s ease, transform 0.2s ease;
 }
 
+body.page-home .nav-links a[href="index.html"],
+body.page-about .nav-links a[href="about.html"],
+body.page-contacts .nav-links a[href="contacts.html"] {
+	font-weight: 700;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+
 /* hover is the state used when the pointer is over a link. */
 /* background adds a soft highlight. */
 /* transform moves the link slightly upward. */
