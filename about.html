@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- About page: this is a separate HTML file because the site has more than one page. -->
+<html lang="en">
+<!-- The html element contains the entire page. -->
+<head>
+    <!-- The head sets up the page before any visible content appears. -->
+    <meta charset="UTF-8" />
+    <!-- UTF-8 handles normal text and symbols safely. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- This keeps the layout responsive on smaller screens. -->
+    <title>About | Study AI Helper</title>
+    <!-- The title identifies the page in the browser tab. -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- The same stylesheet is reused so every page looks like part of the same site. -->
+</head>
+<body>
+    <!-- The body contains all visible page content. -->
+    <header class="topbar">
+        <!-- Shared header keeps navigation consistent across the whole site. -->
+        <div class="brand">
+            <!-- Placeholder logo spot. Later this can become an actual icon image. -->
+            <div class="brand-icon" aria-hidden="true">AI</div>
+            <!-- The span is just text for the site name. -->
+            <span>Study AI Helper</span>
+        </div>
+        <!-- Repeating the nav on every page helps the user move around quickly. -->
+        <nav class="nav-links" aria-label="Primary">
+            <!-- Anchor elements are links to other HTML pages. -->
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contacts.html">Contacts</a>
+        </nav>
+    </header>
+
+    <!-- Main means this section is the primary page content. -->
+    <main class="page">
+        <!-- The card keeps the text centered and readable. -->
+        <section class="content-card">
+            <!-- h1 should stay unique and descriptive for the page. -->
+            <h1>About this project</h1>
+            <!-- Paragraph elements are for normal text content. -->
+            <p>
+                This website is a starter project for building an AI-powered study tool.
+                The goal is to help students prepare for AP exams, SATs, MAPs, and other
+                standardized tests.
+            </p>
+            <!-- This second paragraph gives ideas for future features. -->
+            <p>
+                You can add features later like practice questions, study plans, flashcards,
+                and AI chat support.
+            </p>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,13 +1,57 @@
 
 <!DOCTYPE html>
-<html>
+<!-- The doctype tells the browser to use modern HTML rules. -->
+<html lang="en">
+<!-- The html element wraps the whole document. -->
 <head>
+    <!-- The head holds setup information that the user does not directly see. -->
+    <meta charset="UTF-8" />
+    <!-- UTF-8 lets the page handle normal letters, symbols, and many characters. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- This makes the page scale correctly on phones and tablets. -->
     <title>Website 2</title>
+    <!-- The title appears in the browser tab and bookmarks. -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- The CSS file is linked here so styles load before the page is shown. -->
 </head>
 <body>
-    <h1>Website 2</h1>
-    <h2>skibidi git commit</h2>
-    <h2>latin user name update</h2>
-    <p>Rudy is not impressed by my website even though it's actually really cool :(</p>
-    <p>Dad is more impressed than rudy</p>
+    <!-- The body contains everything visible on the webpage. -->
+    <header class="topbar">
+        <!-- Header is used for top content like a logo and navigation. -->
+        <div class="brand">
+            <!-- This wraps the icon and site name together as one brand area. -->
+            <div class="brand-icon" aria-hidden="true">AI</div>
+            <!-- aria-hidden means screen readers ignore this decorative icon. -->
+            <span>Study AI Helper</span>
+            <!-- Span is an inline element used here just for the site name text. -->
+        </div>
+        <!-- Nav tells the browser this group of links is the main navigation. -->
+        <nav class="nav-links" aria-label="Primary">
+            <!-- Anchor tags create clickable links to other pages. -->
+            <a href="index.html">Home</a>
+            <!-- This link points back to the homepage. -->
+            <a href="about.html">About</a>
+            <!-- This link opens the About page. -->
+            <a href="contacts.html">Contacts</a>
+            <!-- This link opens the Contacts page. -->
+        </nav>
+    </header>
+
+    <!-- Main holds the unique content for this specific page. -->
+    <main class="page">
+        <!-- Section groups the hero content into one meaningful block. -->
+        <section class="hero">
+            <!-- h1 is the most important heading on the page. -->
+            <h1>Study smarter with AI</h1>
+            <!-- Paragraphs hold normal text and explain the purpose of the site. -->
+            <p>
+                A simple starter homepage for an AI-powered study tool for AP exams,
+                SATs, MAPs, and other standardized tests.
+            </p>
+            <!-- A link can be styled like a button using CSS. -->
+            <a class="button" href="about.html">Learn more</a>
+            <!-- This sends the user to the About page for more information. -->
+        </section>
+    </main>
 </body>
+</html>

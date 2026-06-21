@@ -1,0 +1,225 @@
+/* CSS controls appearance. It changes color, spacing, layout, and size. */
+
+/* The universal selector targets every element on the page. */
+/* box-sizing: border-box means padding and borders are included in the element size. */
+* {
+	box-sizing: border-box;
+}
+
+/* html and body are the root layers of the page. */
+/* margin: 0 removes the browser's default outer gap. */
+/* min-height: 100% helps the page fill the screen vertically. */
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+}
+
+/* body is the visible page background and default text styling. */
+/* font-family changes the typeface used everywhere inside the body. */
+/* background uses a gradient, which blends two gray tones. */
+/* color sets the default text color. */
+body {
+	font-family: Arial, sans-serif;
+	background: linear-gradient(180deg, #f4f4f4 0%, #dedede 100%);
+	color: #222;
+}
+
+/* topbar is the horizontal navigation area at the top of the page. */
+/* display: flex places children in a row by default. */
+/* align-items: center aligns items vertically in the middle. */
+/* justify-content: space-between pushes the brand left and links right. */
+/* gap creates space between flex items. */
+/* padding adds breathing room inside the bar. */
+/* background sets the gray bar color. */
+/* color makes the text white. */
+/* box-shadow adds depth so the bar stands out from the page. */
+.topbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 16px 24px;
+	background: #6b6b6b;
+	color: #ffffff;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* brand groups the icon and text so they act like one logo area. */
+/* display: flex keeps the icon and name on one line. */
+/* align-items: center vertically aligns them. */
+/* gap controls spacing between the icon and the text. */
+/* font-weight makes the brand name bolder. */
+/* letter-spacing slightly increases space between letters. */
+.brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-weight: 700;
+	letter-spacing: 0.3px;
+}
+
+/* brand-icon is the circular placeholder logo. */
+/* width and height create a square box. */
+/* border-radius: 50% turns that box into a circle. */
+/* border creates the ring around the icon. */
+/* display: grid and place-items: center put the text in the middle. */
+/* background sets the darker gray fill. */
+/* font-size makes the AI letters smaller than the page title. */
+.brand-icon {
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	border: 2px solid rgba(255, 255, 255, 0.7);
+	display: grid;
+	place-items: center;
+	background: #8a8a8a;
+	font-size: 0.8rem;
+}
+
+/* nav-links holds the navigation anchors. */
+/* display: flex puts the links in a row. */
+/* align-items: center keeps them vertically aligned. */
+/* gap separates each link. */
+/* flex-wrap allows the links to wrap onto a new line on smaller screens. */
+.nav-links {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+/* nav-links a targets every anchor inside the navigation. */
+/* color makes the links white. */
+/* text-decoration removes the default underline. */
+/* font-weight makes the links easier to read. */
+/* padding gives them button-like spacing. */
+/* border-radius makes pill-shaped links. */
+/* transition smooths the hover animation. */
+.nav-links a {
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 8px 12px;
+	border-radius: 999px;
+	transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* hover is the state used when the pointer is over a link. */
+/* background adds a soft highlight. */
+/* transform moves the link slightly upward. */
+.nav-links a:hover {
+	background: rgba(255, 255, 255, 0.15);
+	transform: translateY(-1px);
+}
+
+/* page wraps the main content and gives it room away from the edges. */
+.page {
+	padding: 72px 20px;
+}
+
+/* hero is the main card on the homepage. */
+/* max-width prevents the content from getting too wide. */
+/* margin: 0 auto centers it. */
+/* text-align: center centers the text. */
+/* background is a light translucent panel. */
+/* border adds a subtle outline. */
+/* border-radius rounds the corners. */
+/* padding adds inner space. */
+/* box-shadow gives the card depth. */
+.hero {
+	max-width: 900px;
+	margin: 0 auto;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.72);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 24px;
+	padding: 64px 24px;
+	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* The homepage heading should be the visual focus. */
+/* clamp picks a size that scales with the screen but stays within limits. */
+.hero h1 {
+	margin: 0 0 16px;
+	font-size: clamp(2.4rem, 6vw, 4.2rem);
+}
+
+/* Paragraph text needs comfortable line spacing for readability. */
+/* max-width keeps the lines from becoming too long. */
+/* margin centers it and adds space below. */
+/* line-height improves readability. */
+/* color softens the text slightly. */
+.hero p {
+	max-width: 720px;
+	margin: 0 auto 28px;
+	font-size: 1.1rem;
+	line-height: 1.7;
+	color: #444;
+}
+
+/* button styles the call-to-action link so it looks like a button. */
+/* display: inline-block lets padding and width behave like a button. */
+/* padding increases click area. */
+/* border-radius creates the rounded pill shape. */
+/* background sets the button color. */
+/* color sets the text color. */
+/* text-decoration removes the underline. */
+/* font-weight makes the text bold. */
+.button {
+	display: inline-block;
+	padding: 14px 22px;
+	border-radius: 999px;
+	background: #4f4f4f;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 700;
+}
+
+/* hover changes the button color when the user points at it. */
+.button:hover {
+	background: #383838;
+}
+
+/* content-card is reused on the About and Contacts pages. */
+/* It creates the same centered panel style as the homepage hero. */
+.content-card {
+	max-width: 800px;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.72);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 24px;
+	padding: 40px 28px;
+	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Remove the default top margin from the card title. */
+.content-card h1 {
+	margin-top: 0;
+}
+
+/* Paragraph spacing stays consistent on the inner pages. */
+.content-card p {
+	line-height: 1.7;
+	color: #444;
+}
+
+/* media query applies different styles when the screen is 640px wide or smaller. */
+@media (max-width: 640px) {
+	/* Column layout works better when the screen is narrow. */
+	.topbar {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	/* Reduce top padding on small screens to save space. */
+	.page {
+		padding-top: 48px;
+	}
+
+	/* Smaller card padding keeps content comfortable on phones. */
+	.hero,
+	.content-card {
+		padding: 32px 20px;
+	}
+}
