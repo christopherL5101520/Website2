@@ -124,10 +124,12 @@ function updateTopbarCounters(stats) {
     const activeEl = document.getElementById("activeUsers");
     const totalEl = document.getElementById("totalUsers");
     const peakEl = document.getElementById("peakUsers");
+    const visitsEl = document.getElementById("totalVisits");
 
     if (activeEl) activeEl.textContent = stats.activeUsers;
     if (totalEl) totalEl.textContent = stats.totalUsers;
     if (peakEl) peakEl.textContent = stats.peakUsers;
+    if (visitsEl) visitsEl.textContent = stats.visits ?? 0;
 }
 
 function hideSearchDropdown(dropdown) {
@@ -287,12 +289,32 @@ const TRACKER_BASE = (() => {
   return "http://127.0.0.1:5000";
 })();
 
-
 function trackerUrl(path) {
     return `${TRACKER_BASE}${path}`;
 }
 
-const userId = crypto.randomUUID();
+const VISITOR_STORAGE_KEY = "studyAiVisitorId";
+
+function getOrCreateVisitorId() {
+    try {
+        const storedId = window.localStorage.getItem(VISITOR_STORAGE_KEY);
+        if (storedId) {
+            return storedId;
+        }
+
+        const newId = crypto.randomUUID();
+        window.localStorage.setItem(VISITOR_STORAGE_KEY, newId);
+        return newId;
+    } catch (error) {
+        return crypto.randomUUID();
+    }
+}
+
+const userId = getOrCreateVisitorId();
+
+function recordVisit() {
+    fetch(trackerUrl(`/visit/${userId}`));
+}
 
 // send initial ping
 fetch(trackerUrl(`/ping/${userId}`));
@@ -315,6 +337,7 @@ async function updateStats() {
             activeUsers: data.activeUsers,
             totalUsers: data.totalUsers,
             peakUsers: data.peakActiveUsers,
+            visits: data.visits ?? 0,
         });
     } catch (error) {
         console.warn("Unable to fetch tracker stats:", error);
@@ -323,4 +346,7 @@ async function updateStats() {
 
 // update stats every 2 seconds
 setInterval(updateStats, 2000);
+if (document.body.classList.contains("page-home")) {
+    recordVisit();
+}
 updateStats();

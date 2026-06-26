@@ -9,6 +9,7 @@ CORS(app)
 active_users = set()
 peak_active_users = 0
 total_users = 0
+total_visits = 0
 
 # we track "last seen" so we can expire inactive users
 last_seen = {}
@@ -48,6 +49,13 @@ def ping(user_id):
 
     return "ok"
 
+@app.route("/visit/<user_id>")
+def visit(user_id):
+    global total_visits
+    total_visits += 1
+    return jsonify({"visits": total_visits})
+
+
 @app.route("/stats")
 def stats():
     cleanup_inactive_users()
@@ -55,7 +63,8 @@ def stats():
     return jsonify({
         "activeUsers": len(active_users),
         "peakActiveUsers": peak_active_users,
-        "totalUsers": total_users
+        "totalUsers": total_users,
+        "visits": total_visits
     })
 
 
