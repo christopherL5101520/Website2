@@ -8,6 +8,7 @@ CORS(app, resources={r"/*": {"origins": os.getenv("CORS_ORIGINS", "*")}})
 
 # --- tracking storage ---
 active_users = set()
+known_users = set()
 peak_active_users = 0
 total_users = 0
 total_visits = 0
@@ -41,10 +42,12 @@ def cleanup_inactive_users():
 def ping(user_id):
     global total_users, peak_active_users
 
-    # add user if new
-    if user_id not in active_users:
-        active_users.add(user_id)
+    # Count a browser as a total user only once, even if it goes inactive and returns.
+    if user_id not in known_users:
+        known_users.add(user_id)
         total_users += 1
+
+    active_users.add(user_id)
 
     # update last seen
     last_seen[user_id] = time.time()

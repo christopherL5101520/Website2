@@ -200,7 +200,7 @@ function initSearch() {
     });
 
     document.addEventListener("click", function (event) {
-        if (event.target !== searchInput && event.target !== searchDropdown) {
+        if (event.target !== searchInput && !searchDropdown.contains(event.target)) {
             hideSearchDropdown(searchDropdown);
         }
     });
@@ -263,18 +263,11 @@ function initTopicPage() {
 // ============================================================================
 // Sets up page-specific behavior after the DOM finishes loading.
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     initSearch();
-//     initTopicPage();
-
-//     if (document.body.classList.contains("page-home")) {
-//         updateTopbarCounters({
-//             activeUsers: 42,
-//             totalUsers: 1284,
-//             peakUsers: 96,
-//         });
-//     }
-// });
+document.addEventListener("DOMContentLoaded", function () {
+    initSearch();
+    initTopicPage();
+    initTracker();
+});
 
 
 const TRACKER_BASE = (() => {
@@ -292,6 +285,14 @@ function trackerUrl(path) {
 
 const VISITOR_STORAGE_KEY = "studyAiVisitorId";
 
+function createVisitorId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+    }
+
+    return `visitor-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 function getOrCreateVisitorId() {
     try {
         const storedId = window.localStorage.getItem(VISITOR_STORAGE_KEY);
@@ -299,27 +300,27 @@ function getOrCreateVisitorId() {
             return storedId;
         }
 
-        const newId = crypto.randomUUID();
+        const newId = createVisitorId();
         window.localStorage.setItem(VISITOR_STORAGE_KEY, newId);
         return newId;
     } catch (error) {
-        return crypto.randomUUID();
+        return createVisitorId();
     }
 }
 
-const userId = getOrCreateVisitorId();
-
-function recordVisit() {
-    fetch(trackerUrl(`/visit/${userId}`));
+function sendTrackerRequest(path) {
+    return fetch(trackerUrl(path)).catch((error) => {
+        console.warn("Unable to reach tracker:", error);
+    });
 }
 
-// send initial ping
-fetch(trackerUrl(`/ping/${userId}`));
+function recordVisit(userId) {
+    sendTrackerRequest(`/visit/${userId}`);
+}
 
-// keep sending ping every 5 seconds
-setInterval(() => {
-    fetch(trackerUrl(`/ping/${userId}`));
-}, 5000);
+function pingTracker(userId) {
+    sendTrackerRequest(`/ping/${userId}`);
+}
 
 // function to update stats on page
 async function updateStats() {
@@ -341,9 +342,23 @@ async function updateStats() {
     }
 }
 
-// update stats every 2 seconds
-setInterval(updateStats, 2000);
-if (document.body.classList.contains("page-home")) {
-    recordVisit();
+function initTracker() {
+    const userId = getOrCreateVisitorId();
+
+    // send initial ping
+    pingTracker(userId);
+
+    // keep sending ping every 5 seconds
+    setInterval(() => {
+        pingTracker(userId);
+    }, 5000);
+
+    // update stats every 2 seconds
+    setInterval(updateStats, 2000);
+
+    if (document.body.classList.contains("page-home")) {
+        recordVisit(userId);
+    }
+
+    updateStats();
 }
-updateStats();
